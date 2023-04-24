@@ -1,0 +1,10 @@
+﻿  BoxCommand.cpp
+  CircleCommand.cpp
+  ClearCommand.cpp
+  LineCommand.cpp
+  PolygonCommand.cpp
+  InputHandler.cpp
+  Scene.cpp
+  main.cpp
+  Создание кода...
+  Задание от Топ Систем.vcxproj -> C:\Программирование\С++\Задание от Топ Систем\Debug\Задание от Топ Систем.exe

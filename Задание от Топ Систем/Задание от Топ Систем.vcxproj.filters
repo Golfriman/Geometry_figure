@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\Command">
+      <UniqueIdentifier>{ce337812-ccd7-49f1-96b3-b9969ad60849}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Command">
+      <UniqueIdentifier>{63f5dada-e663-4846-b1fa-e5a1477b4f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Shape">
+      <UniqueIdentifier>{46a4ea45-3236-4a99-a854-9885632244e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Shape">
+      <UniqueIdentifier>{877d231c-a142-4188-a60c-4c41b3a76acd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Factory">
+      <UniqueIdentifier>{34719abe-762c-4caf-a54e-d9f3497d1bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Factory">
+      <UniqueIdentifier>{f63033f0-8dea-46c1-969b-8bbcdb9640a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\ClearCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\LineCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape\Box.cpp">
+      <Filter>Исходные файлы\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape\Circle.cpp">
+      <Filter>Исходные файлы\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape\Line.cpp">
+      <Filter>Исходные файлы\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape\Polygon.cpp">
+      <Filter>Исходные файлы\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape\Shape.cpp">
+      <Filter>Исходные файлы\Shape</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\LineFactory.cpp">
+      <Filter>Исходные файлы\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\BoxCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\BoxFactory.cpp">
+      <Filter>Исходные файлы\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\PolygonFactory.cpp">
+      <Filter>Исходные файлы\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\CircleFactory.cpp">
+      <Filter>Исходные файлы\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\PolygonCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory\ClearFactory.cpp">
+      <Filter>Исходные файлы\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="Command\CircleCommand.cpp">
+      <Filter>Исходные файлы\Command</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scene.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\Command.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\ClearCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\LineCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Box.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Circle.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Line.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Point.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Polygon.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape\Shape.h">
+      <Filter>Файлы заголовков\Shape</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\Factory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\LineFactory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\BoxCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\BoxFactory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\PolygonFactory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\PolygonCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\CircleFactory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Command\CircleCommand.h">
+      <Filter>Файлы заголовков\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory\ClearFactory.h">
+      <Filter>Файлы заголовков\Factory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Задание от Топ Систем.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="bitmap1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
