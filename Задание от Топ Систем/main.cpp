@@ -9,6 +9,8 @@
 #include "Scene.h"
 #include "InputHandler.h"
 #include "Factory/ClearFactory.h"
+#include "Mediator.h"
+
 static TCHAR szWindowClass[] = _T("DesktopApp");
 
 static TCHAR szTitle[] = _T("Тестовое задание от Топ систем");
@@ -19,6 +21,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 
 void             CreateButtons(HWND);
+
 
 
 int WINAPI WinMain(
@@ -105,7 +108,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     PAINTSTRUCT ps;
     HDC hdc;
     static Scene* scene;
-    static Factory* factory;    
+    static Factory* factory;
+    static Mediator mediator;
+    
    
     switch (message)
     {
@@ -143,7 +148,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int y = GET_Y_LPARAM(lParam);
         if (factory->buildShape(x, y))
         {
-            scene->addShape(factory->endBuild());
+            auto build = factory->endBuild();
+            build->setHPEN(mediator.buildPen());
+            scene->addShape(build);
             delete factory;
             factory = nullptr;
             InvalidateRect(hWnd, NULL, TRUE);
@@ -157,7 +164,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             break;
         int x = GET_X_LPARAM(lParam);
         int y = GET_Y_LPARAM(lParam);
-        scene->addTempShape(factory->tempBuild(x, y));
+        auto build = factory->tempBuild(x, y);
+        if (build == nullptr)
+            break;
+        build->setHPEN(mediator.buildPen());
+        scene->addTempShape(build);
         InvalidateRect(hWnd, NULL, TRUE);
         UpdateWindow(hWnd);
         break;
@@ -170,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         scene->draw(hdc);
         scene->drawTempShape(hdc);
-            
+ 
         EndPaint(hWnd, &ps);
         break;
     case WM_DESTROY:
@@ -193,7 +204,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE|WS_CHILD,
         0, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID::IDM_BUTTON1),
+        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON1),
         hInst,
         NULL
         );
@@ -204,7 +215,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         20, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID::IDM_BUTTON2),
+        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON2),
         hInst,
         NULL
     );
@@ -215,7 +226,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         40, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID::IDM_BUTTON3),
+        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON3),
         hInst,
         NULL
     );
@@ -225,7 +236,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         60, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID::IDM_BUTTON4),
+        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON4),
         hInst,
         NULL
     ); 
@@ -235,7 +246,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         80, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID::IDM_BUTTON5),
+        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON5),
         hInst,
         NULL
     );

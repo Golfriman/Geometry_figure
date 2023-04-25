@@ -19,6 +19,7 @@ namespace sh {
 		void changeColorPen(Color color);
 		void changeStylePen(int iStyle);
 		void changeWidthPen(int cWdith);
+		void setHPEN(HPEN pen);
 		virtual void draw(HDC& hdc) const = 0;
 		virtual ~Shape() = default;
 	private:

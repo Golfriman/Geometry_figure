@@ -2,6 +2,7 @@
 
 void sh::Shape::createPen()
 {
+	DeleteObject(pen);
 	pen = CreatePen(iStyle, cWidth, color);
 }
 
@@ -25,8 +26,13 @@ void sh::Shape::changeStylePen(int iStyle)
 	createPen();
 }
 
-void sh::Shape::changeWidthPen(int cWdith)
+void sh::Shape::changeWidthPen(int cWidth)
 {
 	this->cWidth = cWidth;
 	createPen();
+}
+
+void sh::Shape::setHPEN(HPEN pen)
+{
+	this->pen = pen;
 }

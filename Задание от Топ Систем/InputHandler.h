@@ -4,7 +4,7 @@
 class InputHandler
 {
 public:
-    enum ID
+    enum ID_Figure_Button
     {
         IDM_BUTTON1 = 101,
         IDM_BUTTON2,
