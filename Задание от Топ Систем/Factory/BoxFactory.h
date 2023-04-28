@@ -5,7 +5,9 @@
 
 class BoxFactory : public Factory
 {
-	const int step = 2;
+	enum {
+		step = 2
+	};
 	std::array<std::pair<int, int>, 2> points;
 	int currentStep = 0;
 public:
