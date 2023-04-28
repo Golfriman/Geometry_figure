@@ -141,7 +141,8 @@
     <ClCompile Include="Factory\ClearFactory.cpp" />
     <ClCompile Include="Factory\LineFactory.cpp" />
     <ClCompile Include="Factory\PolygonFactory.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="ButtonHandler.cpp" />
+    <ClCompile Include="LineEditHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mediator.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -164,7 +165,8 @@
     <ClInclude Include="Factory\Factory.h" />
     <ClInclude Include="Factory\LineFactory.h" />
     <ClInclude Include="Factory\PolygonFactory.h" />
-    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="ButtonHandler.h" />
+    <ClInclude Include="LineEditHandler.h" />
     <ClInclude Include="Mediator.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />

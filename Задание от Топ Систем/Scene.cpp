@@ -65,7 +65,6 @@ void Scene::createCircleExample()
 	circle->changeColorPen(sh::Shape::Magenta);
 	circle->setDetalization(360);
 	addShape(circle);
-	circle->setDetalization(30);
 }
 
 void Scene::createPolygonExample()

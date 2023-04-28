@@ -13,7 +13,6 @@ public:
 	void clear();
 	~Scene();
 private:
-	HDC hdc;
 	std::list<sh::Shape*> shapes;
 	sh::Shape* temp;
 	void initScene();

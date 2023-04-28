@@ -7,7 +7,8 @@
 #include <tchar.h>
 #include <windowsx.h>
 #include "Scene.h"
-#include "InputHandler.h"
+#include "ButtonHandler.h"
+#include "LineEditHandler.h"
 #include "Factory/ClearFactory.h"
 #include "Mediator.h"
 
@@ -16,6 +17,9 @@ static TCHAR szWindowClass[] = _T("DesktopApp");
 static TCHAR szTitle[] = _T("Тестовое задание от Топ систем");
 
 HINSTANCE hInst;
+HWND hWndRed;
+HWND hWndGreen;
+HWND hWndBlue;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -34,7 +38,7 @@ int WINAPI WinMain(
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.style = CS_HREDRAW | CS_VREDRAW | CS_PARENTDC;
     wcex.lpfnWndProc = WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
@@ -64,7 +68,7 @@ int WINAPI WinMain(
         WS_EX_OVERLAPPEDWINDOW,
         szWindowClass,
         szTitle,
-        WS_OVERLAPPEDWINDOW,
+        WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
         CW_USEDEFAULT, CW_USEDEFAULT,
         500, 500,
         NULL,
@@ -110,6 +114,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     static Scene* scene;
     static Factory* factory;
     static Mediator mediator;
+    static LineEditHandler lineEditHandler;
     
    
     switch (message)
@@ -118,25 +123,35 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         int idCommand = LOWORD(wParam);
 
-        InputHandler handler;
-        Command* command = handler.handleInput(idCommand);
+        ButtonHandler buttonHandler;
+        Command* command = buttonHandler.handleInput(idCommand);
 
-        if (command == nullptr)
+        if (command!= nullptr)
+        {
+            if (factory != nullptr)
+            {
+                delete factory;
+                factory = nullptr;
+            }
+            factory = command->execute();
+            if (ClearFactory* f = dynamic_cast<ClearFactory*>(factory); f != nullptr)
+            {
+                scene->clear();
+                delete factory;
+                factory = nullptr;
+                InvalidateRect(hWnd, NULL, TRUE);
+                UpdateWindow(hWnd);
+            }
+            delete command;
             break;
-        if (factory != nullptr)
-        {
-            delete factory;
-            factory = nullptr;
         }
-        factory = command->execute();
-        if (ClearFactory* f = dynamic_cast<ClearFactory*>(factory); f != nullptr)
-        {
-            scene->clear();
-            delete factory;
-            factory = nullptr;
-            InvalidateRect(hWnd, NULL, TRUE);
-            UpdateWindow(hWnd);
-        }
+
+        
+        int color = lineEditHandler.execute(idCommand);
+        if (color == -1)
+            break;
+        mediator.changeColor(static_cast<sh::Shape::Color>(color));
+        
 
         break;
     }
@@ -154,7 +169,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             delete factory;
             factory = nullptr;
             InvalidateRect(hWnd, NULL, TRUE);
-            UpdateWindow(hWnd);
         }
         break;
     }
@@ -170,20 +184,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         build->setHPEN(mediator.buildPen());
         scene->addTempShape(build);
         InvalidateRect(hWnd, NULL, TRUE);
-        UpdateWindow(hWnd);
         break;
     }
     case WM_CREATE:
         scene = new Scene();
+        lineEditHandler.init(hWnd, hInst, 100, 0);
         break;
     case WM_PAINT:
+    {
         hdc = BeginPaint(hWnd, &ps);
 
-        scene->draw(hdc);
-        scene->drawTempShape(hdc);
- 
+        HDC memDC = CreateCompatibleDC(hdc);
+
+        RECT rcClientRectangle;
+        GetClientRect(hWnd, &rcClientRectangle);
+
+        HBITMAP bmp = CreateCompatibleBitmap(hdc,
+            rcClientRectangle.right - rcClientRectangle.left,
+            rcClientRectangle.bottom - rcClientRectangle.top);
+        HBITMAP oldBmp = (HBITMAP)SelectObject(memDC, bmp);
+        FillRect(memDC, &rcClientRectangle, CreateSolidBrush(sh::Shape::White));
+        scene->draw(memDC);
+        scene->drawTempShape(memDC);
+        BitBlt(hdc, 0, 0, rcClientRectangle.right - rcClientRectangle.left,
+            rcClientRectangle.bottom - rcClientRectangle.top, memDC, 0, 0, SRCCOPY);
+        SelectObject(memDC, oldBmp);
+        DeleteObject(bmp);
+        DeleteObject(memDC);
+
         EndPaint(hWnd, &ps);
         break;
+    }
+    case WM_ERASEBKGND:
+        return true;
     case WM_DESTROY:
         PostQuitMessage(0);
         delete scene;
@@ -204,7 +237,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE|WS_CHILD,
         0, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON1),
+        reinterpret_cast<HMENU>(ButtonHandler::ID_Figure_Button::IDM_BUTTON1),
         hInst,
         NULL
         );
@@ -215,7 +248,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         20, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON2),
+        reinterpret_cast<HMENU>(ButtonHandler::ID_Figure_Button::IDM_BUTTON2),
         hInst,
         NULL
     );
@@ -226,7 +259,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         40, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON3),
+        reinterpret_cast<HMENU>(ButtonHandler::ID_Figure_Button::IDM_BUTTON3),
         hInst,
         NULL
     );
@@ -236,7 +269,7 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         60, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON4),
+        reinterpret_cast<HMENU>(ButtonHandler::ID_Figure_Button::IDM_BUTTON4),
         hInst,
         NULL
     ); 
@@ -246,8 +279,9 @@ void CreateButtons(HWND hWndParent)
         WS_VISIBLE | WS_CHILD,
         80, 0, 20, 20,
         hWndParent,
-        reinterpret_cast<HMENU>(InputHandler::ID_Figure_Button::IDM_BUTTON5),
+        reinterpret_cast<HMENU>(ButtonHandler::ID_Figure_Button::IDM_BUTTON5),
         hInst,
         NULL
     );
+    
 }

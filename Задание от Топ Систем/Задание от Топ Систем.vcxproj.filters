@@ -39,7 +39,7 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
+    <ClCompile Include="ButtonHandler.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Command\ClearCommand.cpp">
@@ -90,12 +90,15 @@
     <ClCompile Include="Mediator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="LineEditHandler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.h">
+    <ClInclude Include="ButtonHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Command\Command.h">
@@ -156,6 +159,9 @@
       <Filter>Файлы заголовков\Factory</Filter>
     </ClInclude>
     <ClInclude Include="Mediator.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LineEditHandler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

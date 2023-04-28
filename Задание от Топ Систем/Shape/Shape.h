@@ -7,6 +7,7 @@ namespace sh {
 		const float PI = 3.141'592'6f;
 		enum Color
 		{
+			White = 0xffffff,
 			Black = 0x000000,
 			Red = 0x0000ff,
 			Green = 0x00ff00,
